@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-class Events(models.Model):
+class Event(models.Model):
     title = models.CharField(max_length=250)
     description = models.TextField()
     date_and_time = models.DateTimeField()
