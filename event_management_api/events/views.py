@@ -9,6 +9,9 @@ class EventCreateAPIView(generics.CreateAPIView):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
 
+    def get_queryset(self):
+        return Event.objects.filter(organizer=self.request.user)
+
 #List all future Events
 class EventListAPIView(generics.ListAPIView):
     queryset = Event.objects.all()
