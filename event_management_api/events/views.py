@@ -10,3 +10,8 @@ from .serializers import EventSerializer
 class EventCreateAPIView(generics.CreateAPIView):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
+
+
+
+
+
