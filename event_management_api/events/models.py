@@ -1,5 +1,7 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 class Event(models.Model):
     title = models.CharField(max_length=250)
@@ -9,3 +11,11 @@ class Event(models.Model):
     organizer = models.ForeignKey(User, on_delete=models.CASCADE)
     capacity = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
+
+    def is_upcoming(self):
+        return self.date_and_time > timezone.now()
+
+    
