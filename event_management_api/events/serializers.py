@@ -7,7 +7,7 @@ from .models import Event
 class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
-        fields = '__all__'
+        fields = ['title', 'description', 'date_and_time', 'location', 'capacity', 'created_at']
 
     def validate_date_and_time(self, value):
             if value < timezone.now():
