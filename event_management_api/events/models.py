@@ -1,7 +1,5 @@
-from django.core.exceptions import ValidationError
 from django.db import models
 from django.contrib.auth.models import User
-from django.utils import timezone
 
 class Event(models.Model):
     title = models.CharField(max_length=250)
@@ -15,7 +13,6 @@ class Event(models.Model):
     def __str__(self):
         return self.title
 
-    def is_upcoming(self):
-        return self.date_and_time > timezone.now()
+    
 
     
