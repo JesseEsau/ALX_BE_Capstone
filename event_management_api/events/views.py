@@ -27,11 +27,19 @@ class EventListAPIView(generics.ListAPIView):
         return Event.objects.filter(date_and_time__gte=timezone.now())
     
 class EventDetailView(generics.RetrieveUpdateDestroyAPIView):
+
     queryset = Event.objects.all()
     serializer_class = EventSerializer
 
-    def get_queryset(self):
-        return Event.objects.filter(organizer=self.request.user)
+    
+    def perform_update(self, serializer):
+        return super().perform_update(serializer)
+
+    def perform_destroy(self, instance):
+        return super().perform_destroy(instance)
+
+    # def get_queryset(self):
+    #     return Event.objects.filter(organizer=self.request.user)
 
 
 
