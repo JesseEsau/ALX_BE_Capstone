@@ -14,6 +14,7 @@ class EventCreateAPIView(generics.CreateAPIView):
 
 #List all future Events
 class EventListAPIView(generics.ListAPIView):
+    """Upcoming Events"""
     queryset = Event.objects.all()
     serializer_class = EventSerializer
     
