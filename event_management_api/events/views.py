@@ -7,6 +7,7 @@ from .serializers import EventSerializer
 
 #Create Events
 class EventCreateAPIView(generics.CreateAPIView):
+    """Create an event"""
     permission_classes = [IsAuthenticated]
 
     queryset = Event.objects.all()
