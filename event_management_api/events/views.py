@@ -1,3 +1,4 @@
+from rest_framework.permissions import IsAuthenticated
 from django.utils import timezone
 from rest_framework import generics
 
@@ -6,11 +7,13 @@ from .serializers import EventSerializer
 
 #Create Events
 class EventCreateAPIView(generics.CreateAPIView):
+    permission_classes = [IsAuthenticated]
+
     queryset = Event.objects.all()
     serializer_class = EventSerializer
 
-    def get_queryset(self):
-        return Event.objects.filter(organizer=self.request.user)
+    def perform_create(self, serializer):
+        serializer.save(organizer=self.request.user)
 
 #List all future Events
 class EventListAPIView(generics.ListAPIView):
