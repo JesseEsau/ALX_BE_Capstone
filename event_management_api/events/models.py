@@ -7,7 +7,7 @@ class Event(models.Model):
     date_and_time = models.DateTimeField()
     location = models.CharField(max_length=250)
     organizer = models.ForeignKey(User, on_delete=models.CASCADE)
-    capacity = models.IntegerField(null=True)
+    capacity = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
