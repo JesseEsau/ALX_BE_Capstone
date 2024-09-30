@@ -4,6 +4,7 @@ from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import get_object_or_404
+from rest_framework import filters
 
 from .models import Event
 from .serializers import EventSerializer
@@ -25,6 +26,10 @@ class EventListAPIView(generics.ListAPIView):
     """Upcoming Events"""
     queryset = Event.objects.all()
     serializer_class = EventSerializer
+
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['title', 'location']
+    
     
     #Show only future events
     def get_queryset(self):
