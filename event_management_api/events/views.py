@@ -50,6 +50,8 @@ class EventDetailView(generics.RetrieveUpdateDestroyAPIView):
 
 
 class EventRegistrationView(generics.GenericAPIView):
+    """This view allows users to register for upcoming events."""
+    
     permission_classes = [IsAuthenticated]
 
     queryset = Event.objects.all()
