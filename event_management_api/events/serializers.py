@@ -2,7 +2,7 @@ from rest_framework import serializers
 from rest_framework import status
 from rest_framework.response import Response
 from django.utils import timezone
-from .models import Event
+from .models import Event, EventRegistration
 
 class EventSerializer(serializers.ModelSerializer):
     class Meta:
@@ -14,6 +14,12 @@ class EventSerializer(serializers.ModelSerializer):
             if value < timezone.now():
                 raise serializers.ValidationError({"error":"Event date cannot be in the past."})
             return value
+
+class EventRegistrationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EventRegistration
+        fields = '__all__'
+        
 
 
 
