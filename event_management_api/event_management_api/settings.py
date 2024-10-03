@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'events',
     'accounts',
+    'taggit',
 ]
 
 #jwt authentication
@@ -55,6 +56,8 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 5
     
 }
+
+TAGGIT_CASE_INSENSITIVE = True
 
 # REST_FRAMEWORK = {
 #     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',

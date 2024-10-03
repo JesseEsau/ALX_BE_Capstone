@@ -1,14 +1,16 @@
 from rest_framework import serializers
-from rest_framework import status
-from rest_framework.response import Response
 from django.utils import timezone
 from .models import Event, EventRegistration
+from taggit.serializers import (TagListSerializerField, TaggitSerializer)
 
-class EventSerializer(serializers.ModelSerializer):
+class EventSerializer(TaggitSerializer, serializers.ModelSerializer):
+    tags = TagListSerializerField()
+    
     class Meta:
         model = Event
-        fields = '__all__'
+        fields = ['title', 'description', 'date_and_time', 'location', 'capacity', 'tags']
         read_only_fields = ['organizer']
+
 
     def validate_date_and_time(self, value):
             if value < timezone.now():
