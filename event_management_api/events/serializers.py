@@ -4,11 +4,11 @@ from .models import Event, EventRegistration
 from taggit.serializers import (TagListSerializerField, TaggitSerializer)
 
 class EventSerializer(TaggitSerializer, serializers.ModelSerializer):
-    tags = TagListSerializerField()
+    category = TagListSerializerField()
     
     class Meta:
         model = Event
-        fields = ['title', 'description', 'date_and_time', 'location', 'capacity', 'tags']
+        fields = ['title', 'description', 'date_and_time', 'location', 'capacity', 'category']
         read_only_fields = ['organizer']
 
 

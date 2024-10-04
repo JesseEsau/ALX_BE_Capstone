@@ -4,11 +4,12 @@ from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import get_object_or_404
-from rest_framework import filters
+from django_filters.rest_framework import DjangoFilterBackend
 
 from .models import Event, EventRegistration
 from .serializers import EventSerializer, EventRegistrationSerializer
 from .permissions import IsOwnerOrReadOnly
+from .filters import EventFilter
 
 #Create Events
 class EventCreateAPIView(generics.CreateAPIView):
@@ -27,8 +28,9 @@ class EventListAPIView(generics.ListAPIView):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
 
-    filter_backends = [filters.SearchFilter]
-    search_fields = ['title', 'location']
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = EventFilter
+
     
     
     #Show only future events
@@ -41,7 +43,6 @@ class EventDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
 
-    
     def perform_update(self, serializer):
         return super().perform_update(serializer)
 
