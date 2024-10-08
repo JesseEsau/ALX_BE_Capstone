@@ -33,23 +33,32 @@ INSTALLED_APPS = [
     'accounts',
     'taggit',
     'django_filters',
+    'drf_spectacular',
 ]
 
-#jwt authentication
 REST_FRAMEWORK = {
     
+    #jwt authentication
     'DEFAULT_AUTHENTICATION_CLASSES': (
         
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
 
+    #pagination
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 5,
 
+    #django filter
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+
+    #drf spectacular
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     
 }
 
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Event Management API',
+}
 
 TAGGIT_CASE_INSENSITIVE = True
 
