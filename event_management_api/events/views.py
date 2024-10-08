@@ -14,7 +14,7 @@ from .filters import EventFilter
 
 #Create Events
 class EventCreateAPIView(generics.CreateAPIView):
-    """Create an event"""
+    """Accepts details required to create an event and stores it in the database if all required details are provided like Title, Location and Capacity"""
     permission_classes = [IsAuthenticated]
 
     queryset = Event.objects.all()
@@ -25,7 +25,7 @@ class EventCreateAPIView(generics.CreateAPIView):
 
 #List all future Events
 class EventListAPIView(generics.ListAPIView):
-    """Upcoming Events"""
+    """List all upcoming events."""
     queryset = Event.objects.all()
     serializer_class = EventSerializer
 
@@ -38,7 +38,7 @@ class EventListAPIView(generics.ListAPIView):
 
 #List past Events
 class PastEventListView(generics.ListAPIView):
-    "Past Events"
+    """List all past events"""
     serializer_class = EventSerializer
 
     #list only past events
@@ -47,6 +47,16 @@ class PastEventListView(generics.ListAPIView):
 
 #View, update and delete an event
 class EventDetailView(generics.RetrieveUpdateDestroyAPIView):
+    """Accepts GET, PUT, PATCH and DELETE methods.
+    
+        GET: Retrieves details of an event.
+
+        PUT: Edit all details of an Event. 
+        
+        PATCH: Edit a single detail of an Event, e.g title.
+
+        DELETE: Deletes an event from the database.
+    """
     permission_classes = [IsOwnerOrReadOnly]
 
     queryset = Event.objects.all()
@@ -58,8 +68,9 @@ class EventDetailView(generics.RetrieveUpdateDestroyAPIView):
     def perform_destroy(self, instance):
         return super().perform_destroy(instance)
 
+#view to register for an event
 class EventRegistrationView(generics.ListCreateAPIView):
-    """This view allows users to register for upcoming events and view total registrations."""
+    """Allows users to register for upcoming events and view total registrations."""
 
     permission_classes = [IsAuthenticated]
     queryset = Event.objects.all()
@@ -86,7 +97,10 @@ class EventRegistrationView(generics.ListCreateAPIView):
         total_registrations = EventRegistration.objects.filter(event=event).count()
         return Response({"detail": f"{total_registrations} registered for {event.title}"})
 
+#comment on past event
 class CommentCreateView(generics.GenericAPIView):
+    """Accepts POST method and creates a comment on a past Event."""
+
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
 
@@ -98,7 +112,17 @@ class CommentCreateView(generics.GenericAPIView):
         return Response({"detail": "Feedback submitted."}, status=status.HTTP_201_CREATED)
 
     
-
+#view for retrieving, updating, and deleting a comment
 class CommentRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+    """Accepts GET, PUT, PATCH and DELETE methods.
+    
+        GET: Retrieves details of a comment(feedback).
+
+        PUT: Edit all details of a comment. 
+        
+        PATCH: Edit a single detail of a comment, e.g title.
+        
+        DELETE: Deletes an comment from the database.
+    """
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
