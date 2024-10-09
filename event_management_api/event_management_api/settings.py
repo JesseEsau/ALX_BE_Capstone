@@ -14,9 +14,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+#security
+CSRF_COOKIE_SECURE = True  # Use HTTPS for CSRF cookie
+X_FRAME_OPTIONS = 'DENY'  # Prevent your site from being framed
+SECURE_BROWSER_XSS_FILTER = True  # Activate the browser XSS filter
+SECURE_CONTENT_TYPE_NOSNIFF = True  # Prevent browsers from MIME-sniffing
+SESSION_COOKIE_SECURE = True  # Use HTTPS for session cookies
+SECURE_SSL_REDIRECT = True  # Redirect HTTP to HTTPS
+
+ALLOWED_HOSTS = ['jaxxy.pythonanywhere.com']
 
 
 # Application definition
@@ -102,10 +110,23 @@ WSGI_APPLICATION = 'event_management_api.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': config('DB_NAME'), 
+        'USER': config('USER_NAME'),      
+        'PASSWORD': config('PASSWORD'),    
+        'HOST': config('HOST'),  
+        'PORT': '3306',                 # MySQL port, usually 3306
     }
 }
 
@@ -145,6 +166,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
