@@ -1,7 +1,8 @@
 from django.urls import path
-from .views import EventCreateAPIView, EventListAPIView, EventDetailView, EventRegistrationView, CommentCreateView, CommentRetrieveUpdateDestroyAPIView, PastEventListView
+from .views import home, EventCreateAPIView, EventListAPIView, EventDetailView, EventRegistrationView, CommentCreateView, CommentRetrieveUpdateDestroyAPIView, PastEventListView
 
 urlpatterns = [
+    path('', home, name="home"),
     path('event/create/', EventCreateAPIView.as_view(), name="create_event"),
     path('events/', EventListAPIView.as_view(), name="events_list"),
     path("past-events/", PastEventListView.as_view(), name='past_events'),

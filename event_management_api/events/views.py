@@ -1,7 +1,7 @@
-from rest_framework.permissions import IsAuthenticated
 from django.utils import timezone
+from django.shortcuts import render
+from rest_framework.permissions import IsAuthenticated
 from rest_framework import generics
-from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import get_object_or_404
@@ -11,6 +11,11 @@ from .models import Event, EventRegistration, Comment
 from .serializers import EventSerializer, EventRegistrationSerializer, CommentSerializer
 from .permissions import IsOwnerOrReadOnly
 from .filters import EventFilter
+
+#home page
+def home(request):
+    return render(request, 'events/home.html')
+
 
 #Create Events
 class EventCreateAPIView(generics.CreateAPIView):
