@@ -66,6 +66,9 @@ REST_FRAMEWORK = {
 
 SPECTACULAR_SETTINGS = {
     'TITLE': 'Event Management API',
+    'DESCRIPTION': 'RESTful API for managing events, including features for user authentication, event creation, feedback on past events, categorizing, and filtering of events. It allows users to register, create events, categorize them, leave feedback on past events, and filter events based on category or other criteria.',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
 }
 
 TAGGIT_CASE_INSENSITIVE = True
